@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Галерея изображений</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="gallery">
+    <div class="gallery__container">
+      <div class="gallery__item">
+        <img src="images/image1.jpg" alt="Image 1">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image2.jpg" alt="Image 2">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image3.jpg" alt="Image 3">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image4.jpg" alt="Image 4">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image5.jpg" alt="Image 5">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image6.jpg" alt="Image 6">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image7.jpg" alt="Image 7">
+      </div>
+      <div class="gallery__item">
+        <img src="images/image8.jpg" alt="Image 8">
+      </div>
+    </div>
+    <div class="gallery__controls">
+      <button class="gallery__control gallery__control--prev" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="gallery__control gallery__control--next" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="gallery__pager">
+    <span class="gallery__pager-current">1</span> / <span class="gallery__pager-total">8</span>
+  </div>
+</body>
+</html>
