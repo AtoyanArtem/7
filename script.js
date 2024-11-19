@@ -1,59 +1,74 @@
-(function() {
-    const gallery = document.querySelector('.gallery');
-    const galleryContainer = gallery.querySelector('.gallery__container');
-    const galleryItems = galleryContainer.querySelectorAll('.gallery__item');
-    const galleryControls = gallery.querySelectorAll('.gallery__control');
-    const galleryPagerCurrent = gallery.querySelector('.gallery__pager-current');
-    const galleryPagerTotal = gallery.querySelector('.gallery__pager-total');
-  
-    let currentSlide = 0;
-    let slidesPerPage = 3;
-    let totalSlides = galleryItems.length;
-    let totalPages = Math.ceil(totalSlides / slidesPerPage);
-  
-    galleryPagerTotal.textContent = totalPages;
-  
-    function updatePager() {
-      galleryPagerCurrent.textContent = currentSlide + 1;
+document.addEventListener('DOMContentLoaded', () => {
+    const gallerySlider = document.querySelector('.gallery-slider');
+    const slides = document.querySelectorAll('.gallery-slide');
+    const leftArrow = document.querySelector('.arrow.left');
+    const rightArrow = document.querySelector('.arrow.right');
+    const dots = document.querySelectorAll('.dot');
+     // Начинаем с первого слайда
+    const slidesToShow = window.innerWidth > 1000 ? 3 : 1; // Показываем 3 на десктопе и 1 на мобильных
+    const totalSlides = slides.length;
+    const mobile = window.innerWidth > 1000 ? false : true;
+   
+
+    let currentIndex = 0;
+
+
+    function updateSlider() {
+
+        const offset = -currentIndex * (100 / slidesToShow);
+
+        gallerySlider.style.transform = `translateX(${offset}%)`;
+        updateDots();
     }
-  
-    function slideGallery(direction) {
-      if (direction === 'prev') {
-        currentSlide--;
-      } else if (direction === 'next') {
-        currentSlide++;
-      }
-  
-      if (currentSlide < 0) {
-        currentSlide = totalPages - 1;
-      } else if (currentSlide >= totalPages) {
-        currentSlide = 0;
-      }
-  
-      updatePager();
-  
-      galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    function updateDots() {
+        dots.forEach(dot => dot.classList.remove('active')); // Снимаем активность у всех точек
+        if (mobile == true) { 
+        dots[currentIndex].classList.add('active');
+        } else {
+            dots[currentIndex+1].classList.add('active');
+        }
     }
-  
-    galleryControls.forEach(control => {
-      control.addEventListener('click', function() {
-        const direction = this.classList.contains('gallery__control--prev') ? 'prev' : 'next';
-        slideGallery(direction);
-      });
+    
+
+    // Обработчик для стрелки "вправо"
+    rightArrow.addEventListener('click', () => {
+        if (mobile == true) { 
+            if (currentIndex < 7 ) {
+                currentIndex++;
+                updateSlider();
+            }
+        } else {
+            if (currentIndex < 6 ) {
+                currentIndex++;
+                updateSlider();
+            }
+        }
     });
-  
-    window.addEventListener('resize', function() {
-      if (window.innerWidth < 768) {
-        slidesPerPage = 1;
-      } else {
-        slidesPerPage = 3;
-      }
-  
-      totalPages = Math.ceil(totalSlides / slidesPerPage);
-      galleryPagerTotal.textContent = totalPages;
-      currentSlide = 0;
-      updatePager();
-      galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // Обработчик для стрелки "влево"
+    leftArrow.addEventListener('click', () => {
+    if (mobile == true) { 
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSlider();
+        }
+    }
+    else {
+        if (currentIndex > -1) {
+            currentIndex--;
+            updateSlider();
+        }
+    }
     });
-  })();
-  
+
+    // Обработчик для клика по точке, переход к слайду
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentIndex = index ; // Пересчитываем currentIndex в зависимости от точки
+            updateSlider();
+        });
+    });
+
+    updateSlider()
+});
